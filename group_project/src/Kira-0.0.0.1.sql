@@ -17,6 +17,7 @@ CREATE TABLE Ranks
 CREATE TABLE Member
 (
   M_id INT NOT NULL,
+  M_pass VARCHAR(32) NOT NULL,
   M_rank INT NOT NULL,
   M_name VARCHAR(30) NOT NULL,
   State VARCHAR(30) NOT NULL,
@@ -112,17 +113,17 @@ INSERT INTO Guild (G_id, Type, Name) Values (10, 'Guardsmen', 'The Queensguard')
 
 Delete from Member;
 /* INSERT MEMBER  */
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (1, 5, 'Kira', 'OR', '5th', '97355', 'Lebanon');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (2, 4, 'YanYan', 'OR', 'Some St.', '97000', 'Not Portland');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (3, 3, 'Tyler', 'NV', 'Alien Way', '10001', 'Groom Lake');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (4, 2, 'Vinh', 'OR', 'Another St', '97001', 'Idiotville');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (5, 4, 'Rick', 'OR', 'Not Sure Lane', '97000', 'Nowhere');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (6, 3, 'Vinny', 'NJ', 'Forgot St', '02001', 'Groom Lake');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (7, 2, 'Hniv', 'OR', 'Another St', '97002', 'Idiotville');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (8, 5, 'Tiffany', 'OR', 'Lamp St.', '97073', 'Canby');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (9, 1, 'Bill', 'OR', 'McInnis Lanr', '97078', 'Beaverton');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (10, 1, 'Homer', 'OR', 'Doh Way', '97007', 'Springfeild');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (11, 5, 'Steve', 'OR', '1st', '97355', 'Lebanon');
+INSERT INTO Member (M_id, M_pass, M_rank, M_name, State, Street, ZIP, City) VALUES (1, 'abcdefg', 5, 'Kira', 'OR', '5th', '97355', 'Lebanon');
+INSERT INTO Member (M_id, M_pass, M_rank, M_name, State, Street, ZIP, City) VALUES (2, 'abcdefg', 4, 'YanYan', 'OR', 'Some St.', '97000', 'Not Portland');
+INSERT INTO Member (M_id, M_pass, M_rank, M_name, State, Street, ZIP, City) VALUES (3, 'abcdefg', 3, 'Tyler', 'NV', 'Alien Way', '10001', 'Groom Lake');
+INSERT INTO Member (M_id, M_pass, M_rank, M_name, State, Street, ZIP, City) VALUES (4, 'abcdefg', 2, 'Vinh', 'OR', 'Another St', '97001', 'Idiotville');
+INSERT INTO Member (M_id, M_pass, M_rank, M_name, State, Street, ZIP, City) VALUES (5, 'abcdefg', 4, 'Rick', 'OR', 'Not Sure Lane', '97000', 'Nowhere');
+INSERT INTO Member (M_id, M_pass, M_rank, M_name, State, Street, ZIP, City) VALUES (6, 'abcdefg', 3, 'Vinny', 'NJ', 'Forgot St', '02001', 'Groom Lake');
+INSERT INTO Member (M_id, M_pass, M_rank, M_name, State, Street, ZIP, City) VALUES (7, 'abcdefg', 2, 'Hniv', 'OR', 'Another St', '97002', 'Idiotville');
+INSERT INTO Member (M_id, M_pass, M_rank, M_name, State, Street, ZIP, City) VALUES (8, 'abcdefg', 5, 'Tiffany', 'OR', 'Lamp St.', '97073', 'Canby');
+INSERT INTO Member (M_id, M_pass, M_rank, M_name, State, Street, ZIP, City) VALUES (9, 'abcdefg', 1, 'Bill', 'OR', 'McInnis Lanr', '97078', 'Beaverton');
+INSERT INTO Member (M_id, M_pass, M_rank, M_name, State, Street, ZIP, City) VALUES (10, 'abcdefg', 1, 'Homer', 'OR', 'Doh Way', '97007', 'Springfeild');
+INSERT INTO Member (M_id, M_pass, M_rank, M_name, State, Street, ZIP, City) VALUES (11, 'abcdefg', 5, 'Steve', 'OR', '1st', '97355', 'Lebanon');
 
 Delete from Belong;
 /* INSERT Belong  */
@@ -143,17 +144,17 @@ INSERT INTO Belong (M_id, G_id) Values (7,9);
 
 Delete from Quest;
 /* INSERT Quests  */
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (1, '2019-01-01', 5, 'Slay Dragon', 'There is a horrible monster that threatens us just over the mountain. Please, Adventurer, Kill the Ugly, 2 headed dragon', 9);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (1, '2019-01-01', 5, 'Slay Dragon', 'There is a horrible monster that threatens us just over the mountain. Please, Adventurer, Kill the Ugly, 2 headed dragon', 10);
 INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (2, '2019-02-01', 1, 'Roof Repair', 'My inn has a terrible leak in it that is driving away customers. Can someone please come repair my roof?', 3);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (3, '2019-03-01', 2, 'Collect Herbs', 'I am in need of some herbs for dinner tonight and cannot leave my little ones. Please collect Thyme, Rosemary, and Sage', 2);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (4, '2019-04-01', 3, 'Collect Wild Herbs', 'I need some herbs collected from the forests to try making some new potions. Any herbs will do, just please collect an abundance of them.', 4);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (5, '2019-05-01', 4, 'Stone Needed', 'Stone is needed to help extend the perimiter wall that surrounds our city, please deliver 500 tons of stone to the Queensguard.', 5);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (6, '2019-06-01', 5, 'Blankets Needed', 'As Winter approaches, stretching out the blankets in between the children at the orphanage becomes harder and harder. Please donate some blankets to the children.', 1);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (7, '2019-07-01', 1, 'Escort', 'I am old and need to visit my granddaughter in the town over who just gave birth. Please make this newly great-grandmother happy.', 6);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (3, '2019-03-01', 2, 'Collect Herbs', 'I am in need of some herbs for dinner tonight and cannot leave my little ones. Please collect Thyme, Rosemary, and Sage', 7);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (4, '2019-04-01', 3, 'Collect Wild Herbs', 'I need some herbs collected from the forests to try making some new potions. Any herbs will do, just please collect an abundance of them.', 7);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (5, '2019-05-01', 4, 'Stone Needed', 'Stone is needed to help extend the perimiter wall that surrounds our city, please deliver 500 tons of stone to the Queensguard.', 8);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (6, '2019-06-01', 5, 'Blankets Needed', 'As Winter approaches, stretching out the blankets in between the children at the orphanage becomes harder and harder. Please donate some blankets to the children.', 5);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (7, '2019-07-01', 1, 'Escort', 'I am old and need to visit my granddaughter in the town over who just gave birth. Please make this newly great-grandmother happy.', 10);
 INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (8, '2019-08-01', 2, 'Exploration', 'We need someone to help us on an expedition via truck over the north pole into the Demon kingdom, and then back into the Cooalition of Desolate Colonies.
-', 7);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (9, '2019-09-01', 3, 'Train catching', 'CJ catch that train!', 13);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (10, '2019-10-31', 4, 'Potion Needed', 'My father is sick and desperately needs a potion to help with his sore throat. Can I get some potions master to help my father?', 14);
+', 2);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (9, '2019-09-01', 3, 'Train catching', 'CJ catch that train!', 2);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (10, '2019-10-31', 4, 'Potion Needed', 'My father is sick and desperately needs a potion to help with his sore throat. Can I get some potions master to help my father?', 4);
 
 Delete from Reward;
 /* INSERT Rewards  */
@@ -183,6 +184,11 @@ INSERT INTO Takes_On (M_id, Q_id) VALUES ( 9, 6);
 INSERT INTO Takes_On (M_id, Q_id) VALUES ( 10, 5);
 
 
+
+
+
+
+/* DONT GO DOWN FROM HERE */
 
 /* START UPDATES */
 
