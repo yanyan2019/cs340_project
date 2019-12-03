@@ -1,14 +1,25 @@
-<p class = title>This is quest board</p>
-<body>
+<h1>This is quest board</h1>
+  <table id ="t01" border="1">
+    <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+      <th>rank</th>
+      <th>Post Date</th>
+    </tr>
+  </thead>
+<tbody>
   {{#if rows.length}}
     {{#each rows}}
       <tr>
-        <td>{{this.type}}</td>
-        <td>{{this.description}}</td>
+        <td>{{this.Type}}</td>
+        <td>{{this.Description}}</td>
         <td>{{this.Q_rank}}</td>
-        <td>{{this.description}}</td>
+        <td>{{this.Post_Date}}</td>
       </tr>
     {{/each}}
   {{else}}
     <p>ur mum gay</p>
-</body>
+  {{/if}}
+</tbody>
+</table>
