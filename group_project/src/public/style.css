@@ -6,7 +6,7 @@ html body {
 }
 
 a {
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 .navbar{
@@ -27,7 +27,7 @@ ul.navlist {
 	text-align: center;
 }
 
-.item { 
+.item {
 	display: inline-block;
 }
 
@@ -61,4 +61,54 @@ h1:hover {
 	font-size: 20px;
 	position: relative;
 	top: 68px;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 5px;
+}
+
+table {
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 5px;
+  text-align: left;
+}
+table#t01 {
+	width:400px;
+}
+
+table#t01 tr:nth-child(even) {
+  background-color: #e0ebeb;
+}
+
+table#t01 tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+table#t01 th {
+  background-color: black;
+  color: white;
+}
+
+#t01  tr:hover {
+  background-color: orange;
+  color: orange;
 }

@@ -6,11 +6,11 @@ const exphbs = require('express-handlebars');
 const mysql = require('mysql');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 1884;
 
 /* configure handlebars*/
 const hbs = exphbs.create({
-	defaultLayout: 'main', 
+	defaultLayout: 'main',
 	extname: '.hbs'
 });
 
@@ -52,13 +52,18 @@ app.get('/about', function(req, res){
 	close(req);
 });
 
+app.get('/quest', function(req, res){
+	res.status(200).render('quest');
+	close(req);
+});
+
 /* not found 404*/
 app.get('*', function(req,res){
 	res.status(400).render('notfound');
 	close (req);
 });
 
-/* Handled all of the resources we need to clean up, In this case, 
+/* Handled all of the resources we need to clean up, In this case,
  * we just need to close the database connection.
  */
 function close(req) {
