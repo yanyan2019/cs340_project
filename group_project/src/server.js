@@ -14,7 +14,7 @@ var user = {
 };
 /* configure handlebars*/
 const hbs = exphbs.create({
-	defaultLayout: 'main', 
+	defaultLayout: 'main',
 	extname: '.hbs'
 });
 /*add layouts */
@@ -91,6 +91,11 @@ app.get('/account', function(req, res){
 	close(req);
 });
 
+app.get('/quest', function(req, res){
+	res.status(200).render('quest');
+	close(req);
+});
+
 /* not found 404*/
 app.get('*', function(req,res){
 	res.status(400).render('notfound');
@@ -98,7 +103,7 @@ app.get('*', function(req,res){
 	close (req);
 });
 
-/* Handled all of the resources we need to clean up, In this case, 
+/* Handled all of the resources we need to clean up, In this case,
  * we just need to close the database connection.
  */
 function close(req) {
