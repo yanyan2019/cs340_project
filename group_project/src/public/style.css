@@ -1,6 +1,7 @@
 html body {
 	margin:0;
-	background: url("background.jpg") no-repeat fixed center;
+	background: #ffffff no-repeat fixed center;
+	background-size: cover;
 }
 
 a {
@@ -16,6 +17,11 @@ ul.navlist {
 }
 
 h1 {
-	color: black;
+	color: darkslategrey;
 	text-align: center;
+	font-size: 60px;
+}
+
+h1:hover {
+	text-shadow: 2px 1px 5px #75afaf;
 }
