@@ -42,7 +42,13 @@ function connectDb(req, res, next){
  * that creates our database connection and exposes it as 'req.db'.
  */
 app.get('/',connectDb, function(req, res){
-	res.render('home');
+	res.status(200).render('home');
+	close(req);
+});
+
+/* about page */
+app.get('/about', function(req, res){
+	res.status(200).render('about');
 	close(req);
 });
 
