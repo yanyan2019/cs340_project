@@ -122,7 +122,7 @@ INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (7, 2
 INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (8, 5, 'Tiffany', 'OR', 'Lamp St.', '97073', 'Canby');
 INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (9, 1, 'Bill', 'OR', 'McInnis Lanr', '97078', 'Beaverton');
 INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (10, 1, 'Homer', 'OR', 'Doh Way', '97007', 'Springfeild');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (11, 5, 'Steve', 'OR', '1st', 97355, 'Lebanon');
+INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (11, 5, 'Steve', 'OR', '1st', '97355', 'Lebanon');
 
 Delete from Belong;
 /* INSERT Belong  */
