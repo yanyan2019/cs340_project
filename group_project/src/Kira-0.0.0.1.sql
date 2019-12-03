@@ -98,26 +98,17 @@ INSERT INTO Ranks (R_id, R_name) VALUES ( 10, 'Phosphophyllite');
 
 Delete From Guild;
 /* INSERT Guilds  */
-INSERT INTO Guild (G_id, Type, Name) Values (1, 'Mage', 'Mage Guild 1');
-INSERT INTO Guild (G_id, Type, Name) Values (2, 'Mage', 'Mage Guild 2');
-INSERT INTO Guild (G_id, Type, Name) Values (3, 'Mage', 'Mage Guild 3');
-INSERT INTO Guild (G_id, Type, Name) Values (4, 'Mage', 'Mage Guild 4');
-INSERT INTO Guild (G_id, Type, Name) Values (5, 'Mage', 'Mage Guild 5');
-INSERT INTO Guild (G_id, Type, Name) Values (6, 'Mage', 'Mage Guild 6');
-INSERT INTO Guild (G_id, Type, Name) Values (7, 'Mage', 'Mage Guild 7');
-INSERT INTO Guild (G_id, Type, Name) Values (8, 'Mage', 'Mage Guild 8');
-INSERT INTO Guild (G_id, Type, Name) Values (9, 'Mage', 'Mage Guild 9');
-INSERT INTO Guild (G_id, Type, Name) Values (10, 'Mage', 'Mage Guild 10');
-INSERT INTO Guild (G_id, Type, Name) Values (11, 'Fighter', 'Fighter Guild 1');
-INSERT INTO Guild (G_id, Type, Name) Values (12, 'Fighter', 'Fighter Guild 2');
-INSERT INTO Guild (G_id, Type, Name) Values (13, 'Fighter', 'Fighter Guild 3');
-INSERT INTO Guild (G_id, Type, Name) Values (14, 'Fighter', 'Fighter Guild 4');
-INSERT INTO Guild (G_id, Type, Name) Values (15, 'Fighter', 'Fighter Guild 5');
-INSERT INTO Guild (G_id, Type, Name) Values (16, 'Fighter', 'Fighter Guild 6');
-INSERT INTO Guild (G_id, Type, Name) Values (17, 'Fighter', 'Fighter Guild 7');
-INSERT INTO Guild (G_id, Type, Name) Values (18, 'Fighter', 'Fighter Guild 8');
-INSERT INTO Guild (G_id, Type, Name) Values (19, 'Fighter', 'Fighter Guild 9');
-INSERT INTO Guild (G_id, Type, Name) Values (20, 'Fighter', 'Fighter Guild 10');
+INSERT INTO Guild (G_id, Type, Name) Values (1, 'Mage', 'Magical People Inc');
+INSERT INTO Guild (G_id, Type, Name) Values (2, 'Fighter', 'Beat-Em-Up Gang');
+INSERT INTO Guild (G_id, Type, Name) Values (3, 'Carpentry', 'Wood People');
+INSERT INTO Guild (G_id, Type, Name) Values (4, 'Potions', 'Sippers');
+INSERT INTO Guild (G_id, Type, Name) Values (5, 'Quilting', 'Happy Warm People');
+INSERT INTO Guild (G_id, Type, Name) Values (6, 'Sculpting', 'Potter People');
+INSERT INTO Guild (G_id, Type, Name) Values (7, 'Botany', 'Smell the Flower');
+INSERT INTO Guild (G_id, Type, Name) Values (8, 'Mining', 'Cave Dwellers');
+INSERT INTO Guild (G_id, Type, Name) Values (9, 'Tailor', 'Pin and Poke');
+INSERT INTO Guild (G_id, Type, Name) Values (10, 'Guardsmen', 'The Queensguard');
+
 
 Delete from Member;
 /* INSERT MEMBER  */
@@ -126,8 +117,8 @@ INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (2, 4
 INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (3, 3, 'Tyler', 'NV', 'Alien Way', '10001', 'Groom Lake');
 INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (4, 2, 'Vinh', 'OR', 'Another St', '97001', 'Idiotville');
 INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (5, 4, 'Rick', 'OR', 'Not Sure Lane', '97000', 'Nowhere');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (6, 3, 'Ny cousin Vinny', 'NJ', 'Forgot St', '02001', 'Groom Lake');
-INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (7, 2, 'Vinh', 'OR', 'Another St', '97002', 'Idiotville');
+INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (6, 3, 'Vinny', 'NJ', 'Forgot St', '02001', 'Groom Lake');
+INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (7, 2, 'Hniv', 'OR', 'Another St', '97002', 'Idiotville');
 INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (8, 5, 'Tiffany', 'OR', 'Lamp St.', '97073', 'Canby');
 INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (9, 1, 'Bill', 'OR', 'McInnis Lanr', '97078', 'Beaverton');
 INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (10, 1, 'Homer', 'OR', 'Doh Way', '97007', 'Springfeild');
@@ -136,7 +127,6 @@ INSERT INTO Member (M_id, M_rank, M_name, State, Street, ZIP, City) VALUES (11, 
 Delete from Belong;
 /* INSERT Belong  */
 INSERT INTO Belong (M_id, G_id) Values (1,1);
-INSERT INTO Belong (M_id, G_id) Values (1,20);
 INSERT INTO Belong (M_id, G_id) Values (2,2);
 INSERT INTO Belong (M_id, G_id) Values (3,1);
 INSERT INTO Belong (M_id, G_id) Values (4,5);
@@ -147,36 +137,34 @@ INSERT INTO Belong (M_id, G_id) Values (8,8);
 INSERT INTO Belong (M_id, G_id) Values (9,2);
 INSERT INTO Belong (M_id, G_id) Values (10,1);
 INSERT INTO Belong (M_id, G_id) Values (11,5);
-INSERT INTO Belong (M_id, G_id) Values (11,15);
 INSERT INTO Belong (M_id, G_id) Values (3,6);
-INSERT INTO Belong (M_id, G_id) Values (10,14);
-INSERT INTO Belong (M_id, G_id) Values (5,12);
 INSERT INTO Belong (M_id, G_id) Values (11,6);
 INSERT INTO Belong (M_id, G_id) Values (7,9);
 
 Delete from Quest;
 /* INSERT Quests  */
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (1, '2019-01-01', 5, 'Slay Dragon', 'Kill the Ugly, 2 headed dragon', 1);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (2, '2019-02-01', 1, 'Slay the T.A.', 'Somebody must''ve been naughty', 2);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (3, '2019-03-01', 2, 'Collect Herbs', 'Collect Thyme, Rosemary, and Sage', 3);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (4, '2019-04-01', 3, 'Blah 3', 'Desc 3', 4);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (5, '2019-05-01', 4, 'Blah 4', 'Desc 4', 5);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (6, '2019-06-01', 5, 'Blah 5', 'Desc 5', 1);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (7, '2019-07-01', 1, 'Blah 6', 'Desc 6', 6);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (8, '2019-08-01', 2, 'Blah 7', 'Desc 7', 7);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (9, '2019-09-01', 3, 'Blah 8', 'Desc 8', 13);
-INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (10, '2019-10-31', 4, 'Blah 9', 'Desc 9', 14);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (1, '2019-01-01', 5, 'Slay Dragon', 'There is a horrible monster that threatens us just over the mountain. Please, Adventurer, Kill the Ugly, 2 headed dragon', 9);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (2, '2019-02-01', 1, 'Roof Repair', 'My inn has a terrible leak in it that is driving away customers. Can someone please come repair my roof?', 3);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (3, '2019-03-01', 2, 'Collect Herbs', 'I am in need of some herbs for dinner tonight and cannot leave my little ones. Please collect Thyme, Rosemary, and Sage', 2);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (4, '2019-04-01', 3, 'Collect Wild Herbs', 'I need some herbs collected from the forests to try making some new potions. Any herbs will do, just please collect an abundance of them.', 4);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (5, '2019-05-01', 4, 'Stone Needed', 'Stone is needed to help extend the perimiter wall that surrounds our city, please deliver 500 tons of stone to the Queensguard.', 5);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (6, '2019-06-01', 5, 'Blankets Needed', 'As Winter approaches, stretching out the blankets in between the children at the orphanage becomes harder and harder. Please donate some blankets to the children.', 1);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (7, '2019-07-01', 1, 'Escort', 'I am old and need to visit my granddaughter in the town over who just gave birth. Please make this newly great-grandmother happy.', 6);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (8, '2019-08-01', 2, 'Exploration', 'We need someone to help us on an expedition via truck over the north pole into the Demon kingdom, and then back into the Cooalition of Desolate Colonies.
+', 7);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (9, '2019-09-01', 3, 'Train catching', 'CJ catch that train!', 13);
+INSERT INTO Quest (Q_id, Post_Date, Q_rank, `Type`, Description, G_id) VALUES (10, '2019-10-31', 4, 'Potion Needed', 'My father is sick and desperately needs a potion to help with his sore throat. Can I get some potions master to help my father?', 14);
 
 Delete from Reward;
 /* INSERT Rewards  */
-INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 1, 'Thing', 1, 1);
-INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 2, 'Gold', 300, 2);
-INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 3, 'Phoenix Feather', 3 , 10);
+INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 1, 'Gold', 1000, 1);
+INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 2, 'Free One-Night Stay at the Inn', 1, 2);
+INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 3, 'Gold', 10, 10);
 INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 4, 'Boat', 1, 9);
-INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 5, 'Cool Socks', 5, 3);
-INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 6, 'Elephant', 2, 4);
-INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 7, 'Gold', 100, 8);
-INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 8, 'Different Thing', 1, 7);
+INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 5, 'Gold', 150000, 5);
+INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 6, 'A Sense of Good', 1, 4);
+INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 7, 'Gold', 15000, 10);
+INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 8, 'A fancy rock of your choice.', 1, 7);
 INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 9, 'Bottle of Mysterious Potion', 1, 5);
 INSERT INTO Reward ( Id, `Type`, Amount, Q_id) VALUES ( 10, 'Gold', 1000, 6);
 
