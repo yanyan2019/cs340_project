@@ -93,6 +93,7 @@ app.get('/account', function(req, res){
 
 app.get('/quest', function(req, res){
 	res.status(200).render('quest');
+	console.log(" ["+user.name+"]@'/quest'!");
 	close(req);
 });
 
