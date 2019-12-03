@@ -1,5 +1,6 @@
 html body {
-	margin:0;
+	margin: 0;
+	padding: 0;
 	background: #ffffff no-repeat fixed center;
 	background-size: cover;
 }
@@ -8,12 +9,34 @@ a {
 	text-decoration: none;	
 }
 
+.navbar{
+	width: 100%;
+	background-color: #d2dcdc;
+}
+
+.navbar a{
+	float: left;
+	padding: 12px;
+	width: 25%;
+	text-align: center;
+	width: 106px;
+	color: darkslategray;
+}
+
 ul.navlist {
-	list-style-type: none;
+	text-align: center;
 }
 
 .item { 
 	display: inline-block;
+}
+
+.item:hover{
+	text-shadow: 2px 1px 6px #92b3b3;
+}
+
+.navbar{
+	font-size: 30px;
 }
 
 h1 {
