@@ -63,8 +63,8 @@ app.post('/request/login', function(req, res) {
 	if(req.body && req.body.name && req.body.text) {
 		var usernamefrombox 		= req.body.name;
 		var passwordfrombox 		= req.body.text;
-		if(usernamefrombox && true) {
-			if(passwordfrombox && true) {
+		if(usernamefrombox === "SuperPrushka64") {
+			if(passwordfrombox === "Howdy") {
 				res.status(200).send("Login Successful!");
 				user.name = usernamefrombox;
 				user.pass = passwordfrombox;
@@ -92,7 +92,13 @@ app.get('/account', function(req, res){
 });
 
 app.get('/quest', function(req, res){
-	res.status(200).render('quest');
+	if(user.name === "guest") {
+		console.log("You need to login to view this page!");
+		res.status(200).render('account');
+	}
+	else {
+		res.status(200).render('quest');
+	}
 	console.log(" ["+user.name+"]@'/quest'!");
 	close(req);
 });
