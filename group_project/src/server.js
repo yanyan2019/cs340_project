@@ -8,10 +8,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const port = process.env.PORT || 50001;
-var user = {
-	name: "guest",
-	pass: undefined
-};
+var user = undefined;
 /* configure handlebars*/
 const hbs = exphbs.create({
 	defaultLayout: 'main',
@@ -46,14 +43,12 @@ function connectDb(req, res, next){
  */
 app.get('/',connectDb, function(req, res){
 	res.status(200).render('home');
-	console.log(" ["+user.name+"]@'/'!");
 	close(req);
 });
 
 /* about page */
 app.get('/about', function(req, res){
 	res.status(200).render('about');
-	console.log(" ["+user.name+"]@'/about'!");
 	close(req);
 });
 
@@ -66,8 +61,10 @@ app.post('/request/login', function(req, res) {
 		if(usernamefrombox === "SuperPrushka64") {
 			if(passwordfrombox === "Howdy") {
 				res.status(200).send("Login Successful!");
-				user.name = usernamefrombox;
-				user.pass = passwordfrombox;
+				user = {
+					"name": usernamefrombox,
+					"pass": passwordfrombox
+				}
 				console.log("Hello "+user.name+"!");
 			}
 			else {
@@ -85,9 +82,20 @@ app.post('/request/login', function(req, res) {
 	}
 });
 
+app.get('/request/logout', function(req,res) {
+	if(user.name != "guest") {
+		res.status(200).render('logout');
+		user = undefined;
+	}
+	else {
+		res.status(200).render('/account');
+		console.log("User not logged in!")
+	}
+	close(req);
+});
+
 app.get('/account', function(req, res){
 	res.status(200).render('account');
-	console.log(" ["+user.name+"]@'/account'!");
 	close(req);
 });
 
@@ -99,14 +107,12 @@ app.get('/quest', function(req, res){
 	else {
 		res.status(200).render('quest');
 	}
-	console.log(" ["+user.name+"]@'/quest'!");
 	close(req);
 });
 
 /* not found 404*/
 app.get('*', function(req,res){
 	res.status(400).render('notfound');
-	console.log(" ["+user.name+"]@'*'!");
 	close (req);
 });
 
