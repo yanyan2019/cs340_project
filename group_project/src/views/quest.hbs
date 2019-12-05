@@ -1,25 +1,25 @@
 <h1>This is quest board</h1>
-  <table id ="t01" border="1">
+  <table id ="t01" border="1" style="margin: auto;">
     <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-      <th>rank</th>
-      <th>Post Date</th>
-    </tr>
-  </thead>
-<tbody>
-  {{#if rows.length}}
-    {{#each rows}}
       <tr>
-        <td>{{this.Type}}</td>
-        <td>{{this.Description}}</td>
-        <td>{{this.Q_rank}}</td>
-        <td>{{this.Post_Date}}</td>
+        <th>Type</th>
+        <th>Description</th>
+        <th>rank</th>
+        <th>Post Date</th>
       </tr>
-    {{/each}}
-  {{else}}
-    <p>ur mum gay</p>
-  {{/if}}
-</tbody>
+    </thead>
+    <tbody>
+      {{#if rows.length}}
+        {{#each rows}}
+          <tr >
+            <td>{{this.Type}}</td>
+            <td>{{this.Description}}</td>
+            <td>{{this.Q_rank}}</td>
+            <td>{{this.Post_Date}}</td>
+          </tr>
+        {{/each}}
+      {{else}}
+        <h1 style="text-align: center;">ur mum gay</h1>
+      {{/if}}
+    </tbody>
 </table>
