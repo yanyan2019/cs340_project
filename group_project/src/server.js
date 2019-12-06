@@ -62,8 +62,8 @@ app.post('/request/login', function(req, res) {
 			if(passwordfrombox === "Howdy") {
 				res.status(200).send("Login Successful!");
 				user = {
-					"name": usernamefrombox,
-					"pass": passwordfrombox
+					name: usernamefrombox,
+					pass: passwordfrombox
 				}
 				console.log("Hello "+user.name+"!");
 			}
@@ -81,28 +81,34 @@ app.post('/request/login', function(req, res) {
 		res.status(400).send("req.body is undefined!");
 	}
 });
-
-app.get('/request/logout', function(req,res) {
-	if(user.name != "guest") {
-		res.status(200).render('logout');
-		user = undefined;
+app.post('/request/logout', function(req,res) {
+	console.log("req.url: ",req.url);
+	console.log("req.body: ",req.body);
+	if(user == undefined) {
+		console.log("User not logged in!");
+		res.status(200).send("Not logged in!");
 	}
 	else {
-		res.status(200).render('/account');
-		console.log("User not logged in!")
+		user = undefined;
+		res.status(200).send("Logout Successful!");
 	}
 	close(req);
 });
 
 app.get('/account', function(req, res){
-	res.status(200).render('account');
+	if(user == undefined) {
+		res.status(200).render('login');
+	}
+	else {
+		res.status(200).render('logout');
+	}
 	close(req);
 });
 
 app.get('/quest', function(req, res){
-	if(user.name === "guest") {
+	if(user === undefined) {
 		console.log("You need to login to view this page!");
-		res.status(200).render('account');
+		res.status(200).render('notloggedin');
 	}
 	else {
 		res.status(200).render('quest');

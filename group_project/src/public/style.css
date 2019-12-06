@@ -30,7 +30,9 @@ ul.navlist {
 .item {
 	display: inline-block;
 }
-
+.hidden {
+	opacity: 0%;
+}
 .item:hover{
 	text-shadow: 2px 1px 6px #92b3b3;
 }
