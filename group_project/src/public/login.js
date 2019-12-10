@@ -1,7 +1,8 @@
 var form = {
 	name: document.getElementById('ftitle'),
 	text: document.getElementById('ftext'),
-	button: document.getElementById('fbutton')
+	button: document.getElementById('fbutton'),
+	logout: document.getElementById('flogout')
 }
 function POST(event) {
 	postReq = new XMLHttpRequest();

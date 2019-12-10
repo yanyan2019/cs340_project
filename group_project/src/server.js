@@ -8,10 +8,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const port = process.env.PORT || 50001;
-var user = {
-	name: "guest",
-	pass: undefined
-};
+var user = undefined;
 /* configure handlebars*/
 const hbs = exphbs.create({
 	defaultLayout: 'main',
@@ -46,14 +43,12 @@ function connectDb(req, res, next){
  */
 app.get('/',connectDb, function(req, res){
 	res.status(200).render('home');
-	console.log(" ["+user.name+"]@'/'!");
 	close(req);
 });
 
 /* about page */
 app.get('/about', function(req, res){
 	res.status(200).render('about');
-	console.log(" ["+user.name+"]@'/about'!");
 	close(req);
 });
 
@@ -66,8 +61,10 @@ app.post('/request/login', function(req, res) {
 		if(usernamefrombox === "SuperPrushka64") {
 			if(passwordfrombox === "Howdy") {
 				res.status(200).send("Login Successful!");
-				user.name = usernamefrombox;
-				user.pass = passwordfrombox;
+				user = {
+					name: usernamefrombox,
+					pass: passwordfrombox
+				}
 				console.log("Hello "+user.name+"!");
 			}
 			else {
@@ -84,29 +81,44 @@ app.post('/request/login', function(req, res) {
 		res.status(400).send("req.body is undefined!");
 	}
 });
+app.post('/request/logout', function(req,res) {
+	console.log("req.url: ",req.url);
+	console.log("req.body: ",req.body);
+	if(user == undefined) {
+		console.log("User not logged in!");
+		res.status(200).send("Not logged in!");
+	}
+	else {
+		user = undefined;
+		res.status(200).send("Logout Successful!");
+	}
+	close(req);
+});
 
 app.get('/account', function(req, res){
-	res.status(200).render('account');
-	console.log(" ["+user.name+"]@'/account'!");
+	if(user == undefined) {
+		res.status(200).render('login');
+	}
+	else {
+		res.status(200).render('logout');
+	}
 	close(req);
 });
 
 app.get('/quest', function(req, res){
-	if(user.name === "guest") {
+	if(user === undefined) {
 		console.log("You need to login to view this page!");
-		res.status(200).render('account');
+		res.status(200).render('notloggedin');
 	}
 	else {
 		res.status(200).render('quest');
 	}
-	console.log(" ["+user.name+"]@'/quest'!");
 	close(req);
 });
 
 /* not found 404*/
 app.get('*', function(req,res){
 	res.status(400).render('notfound');
-	console.log(" ["+user.name+"]@'*'!");
 	close (req);
 });
 
