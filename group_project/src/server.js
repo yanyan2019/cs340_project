@@ -152,7 +152,14 @@ app.get('/quest', connectDb,function(req, res){
 		res.status(200).render('notloggedin');
 	}
 	else {
-		req.db.query('SELECT * FROM Quest',function(err,Quests) {
+		var qry = `SELECT
+		*
+	FROM
+		Quest q
+	WHERE q.Q_id NOT IN (
+		Select t.Q_id from Takes_On t
+		)`;
+		req.db.query(qry,function(err,Quests) {
 			if(err) {
 				console.log("Error getting Quests!");
 			}
@@ -164,6 +171,32 @@ app.get('/quest', connectDb,function(req, res){
 	}
 	close(req);
 });
+
+app.post('/quest/accept', connectDb, function(req,res) {
+	console.log("Hit here.");
+	 var questID = req.body.Q_id
+	 console.log(user.id + " is Accepting Quest " + questID);
+	 if(user === undefined) {
+	  	//console.log("You need to login to view this page!");
+	 	 //res.status(200).render('notloggedin');
+	 	 res.redirect('/account');
+	 }
+	 else {
+	 	var qry = `Insert into Takes_On (M_id, Q_id) 
+	 	values (`+ user.id + `,` + questID + `)`;
+	 	req.db.query(qry,function(err,Quests) {
+	 		if(err) {
+	 			console.log("Error accepting quest!");
+	 		}
+	 		else {
+	 			console.log(Quests);
+	 			res.status(200).render('quest',{Quests});
+	 		}
+	 	});
+	close(req);
+	 }
+});
+
 app.get('/guild', connectDb, function(req,res) {
 	if(user === undefined) {
 		//console.log("You need to login to view this page!");

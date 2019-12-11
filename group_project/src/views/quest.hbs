@@ -1,11 +1,32 @@
+<script type="text/javascript"> 
+function acceptQuest(questID) {
+  console.log("Accepting quest with the ID: " + questID);    // We got to here!
+  data = JSON.stringify({
+		"Q_id": questID,
+	});
+
+  console.log(data);
+  
+  reqURL = '/quest/accept';
+  postReq = new XMLHttpRequest();
+	postReq.open('POST',reqURL);
+  postReq.setRequestHeader('Content-Type','application/json');
+  postReq.send(data);
+  window.location = '/quest';
+
+}
+
+</script>
+
 <h1>This is quest board</h1>
-  <table id ="t01" border="1" style="margin: auto;">
+  <table id ="t01" border="1" style="margin: auto; {{!width: 500px;}}">
     <thead>
       <tr>
         <th>Type</th>
         <th>Description</th>
         <th>Rank</th>
         <th>Post Date</th>
+        <th>Accept Quest</th>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +37,7 @@
             <td>{{Description}}</td>
             <td>{{Q_rank}}</td>
             <td>{{Post_Date}}</td>
+            <td><input type="button" id="acceptButton_{{Type}}" value="Accept" onclick="acceptQuest('{{Q_id}}');"></input></td>
           </tr>
         {{/each}}
       {{else}}
