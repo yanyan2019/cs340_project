@@ -52,30 +52,50 @@ app.get('/about', function(req, res){
 	close(req);
 });
 
-app.post('/request/login', function(req, res) {
+app.post('/request/login',connectDb, function(req, res) {
 	console.log("req.url: ",req.url);
 	console.log("req.body: ",req.body);
 	if(req.body && req.body.name && req.body.text) {
 		var usernamefrombox 		= req.body.name;
 		var passwordfrombox 		= req.body.text;
-		if(usernamefrombox === "SuperPrushka64") {
-			if(passwordfrombox === "Howdy") {
-				res.status(200).send("Login Successful!");
-				user = {
-					name: usernamefrombox,
-					pass: passwordfrombox
-				}
-				console.log("Hello "+user.name+"!");
+		req.db.query('SELECT * FROM Member WHERE M_name = ?',[usernamefrombox],function(err,members) {
+			if(err) {
+				console.log("Error getting Member");
 			}
 			else {
-				res.status(200).send("Incorrect Password!");
+				console.log("User: ")
+				console.log(members[0].M_name);
+				console.log(members[0].M_id);
+				console.log(usernamefrombox);
+				console.log(passwordfrombox);
+				if(members.length === 0) {
+					console.log("Creating New User!");
+					user = {
+						name: usernamefrombox,
+						pass: passwordfrombox
+					};
+					close(req);
+					res.status(200).send("Creating New Account!");
+				}
+				else {
+					// We have a member with that name.
+					if(members[0].M_id == passwordfrombox) {
+						console.log("Login Successful!");
+						user = {
+							name: usernamefrombox,
+							pass: passwordfrombox
+						};
+						close(req);
+						res.status(200).send("Login Successful!");
+					}
+					else {
+						console.log("Incorrect Password!");
+						close(req);
+						res.status(200).send("Incorrect Password!");
+					}
+				} 
 			}
-		}
-		else {
-			console.log("User doesn't exist!");
-			res.status(200).send("Creating New Account!");
-			//INSERT NEW USER INTO MEMBERS!
-		}
+		});
 	}
 	else {
 		res.status(400).send("req.body is undefined!");
@@ -100,18 +120,45 @@ app.get('/account', function(req, res){
 		res.status(200).render('login');
 	}
 	else {
+		user == undefined;
 		res.status(200).render('logout');
 	}
 	close(req);
 });
 
-app.get('/quest', function(req, res){
+app.get('/quest', connectDb,function(req, res){
 	if(user === undefined) {
 		console.log("You need to login to view this page!");
 		res.status(200).render('notloggedin');
 	}
 	else {
-		res.status(200).render('quest');
+		req.db.query('SELECT * FROM Quest',function(err,Quests) {
+			if(err) {
+				console.log("Error getting Quests!");
+			}
+			else {
+				console.log(Quests);
+				res.status(200).render('quest',{Quests});
+			}
+		});
+	}
+	close(req);
+});
+app.get('guild', connectDb, function(req,res) {
+	if(user === undefined) {
+		console.log("You need to login to view this page!");
+		res.status(200).render('notloggedin');
+	}
+	else {
+		req.db.query('SELECT * FROM Guild',function(err,Guilds) {
+			if(err) {
+				console.log("Error getting Guild!");
+			}
+			else {
+				console.log(Guilds);
+				res.status(200).render('guild',{Guilds});
+			}
+		});
 	}
 	close(req);
 });

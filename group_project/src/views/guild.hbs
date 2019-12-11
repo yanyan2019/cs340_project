@@ -1,21 +1,17 @@
-<h1>This is quest board</h1>
+<h1>Guilds</h1>
   <table id ="t01" border="1" style="margin: auto;">
     <thead>
       <tr>
+        <th>Name</th>
         <th>Type</th>
-        <th>Description</th>
-        <th>rank</th>
-        <th>Post Date</th>
       </tr>
     </thead>
     <tbody>
-      {{#if Quests.length}}
-        {{#each Quests}}
+      {{#if Guilds.length}}
+        {{#each Guilds}}
           <tr >
+            <td>{{Name}}</td>
             <td>{{Type}}</td>
-            <td>{{Description}}</td>
-            <td>{{Q_rank}}</td>
-            <td>{{Post_Date}}</td>
           </tr>
         {{/each}}
       {{else}}
