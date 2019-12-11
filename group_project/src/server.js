@@ -12,7 +12,17 @@ var user = undefined;
 /* configure handlebars*/
 const hbs = exphbs.create({
 	defaultLayout: 'main',
-	extname: '.hbs'
+	extname: '.hbs',
+
+	helpers: {
+		if_eq: function(a, b, opts) {
+			console.log(a + " = " + b);
+			if(a == b) // Or === depending on your needs
+				return opts.fn(this);
+			else
+				return opts.inverse(this);
+		}
+	}
 });
 /*add layouts */
 app.engine('hbs', hbs.engine);
@@ -46,6 +56,8 @@ app.get('/',connectDb, function(req, res){
 	close(req);
 });
 
+
+
 /* about page */
 app.get('/about', function(req, res){
 	res.status(200).render('about');
@@ -58,11 +70,16 @@ app.post('/request/login',connectDb, function(req, res) {
 	if(req.body && req.body.name && req.body.text) {
 		var usernamefrombox 		= req.body.name;
 		var passwordfrombox 		= req.body.text;
-		req.db.query('SELECT * FROM Member WHERE M_name = ?',[usernamefrombox],function(err,members) {
+
+		var qry = `SELECT m.M_id, m.M_name FROM Member m WHERE m.M_name = '${usernamefrombox}' AND m.M_pass = '${passwordfrombox}'`
+		console.log(qry);
+		//req.db.query('SELECT * FROM Member WHERE M_name = ?',[usernamefrombox],function(err,members) {
+		req.db.query(qry,function(err,members) {
 			if(err) {
 				console.log("Error getting Member");
 			}
 			else {
+				console.log(members);
 				console.log("User: ")
 				console.log(members[0].M_name);
 				console.log(members[0].M_id);
@@ -79,14 +96,17 @@ app.post('/request/login',connectDb, function(req, res) {
 				}
 				else {
 					// We have a member with that name.
-					if(members[0].M_id == passwordfrombox) {
-						console.log("Login Successful!");
+					if(members.length > 0
+						) {
+						console.log("Login Successful! from /request/login");
 						user = {
+							id: members[0].M_id,
 							name: usernamefrombox,
 							pass: passwordfrombox
 						};
 						close(req);
-						res.status(200).send("Login Successful!");
+						//res.status(200).send("Login Successful!");
+						
 					}
 					else {
 						console.log("Incorrect Password!");
@@ -144,13 +164,26 @@ app.get('/quest', connectDb,function(req, res){
 	}
 	close(req);
 });
-app.get('guild', connectDb, function(req,res) {
+app.get('/guild', connectDb, function(req,res) {
 	if(user === undefined) {
-		console.log("You need to login to view this page!");
-		res.status(200).render('notloggedin');
+		//console.log("You need to login to view this page!");
+		//res.status(200).render('notloggedin');
+		res.redirect('/account');
 	}
 	else {
-		req.db.query('SELECT * FROM Guild',function(err,Guilds) {
+		var qry = `SELECT
+		g.G_id
+		, g.Name
+		, g.Type
+		, (
+			CASE wHEN b.M_id is null THEN FALSE
+			else tRUE
+			END
+			) AS IS_Member
+	FROM Guild g
+	Left Outer Join Belong b on g.G_id = b.G_id AND b.M_id = ` + user.id + `
+	ORDER BY g.Name`;
+		req.db.query(qry,function(err,Guilds) {
 			if(err) {
 				console.log("Error getting Guild!");
 			}
@@ -162,6 +195,67 @@ app.get('guild', connectDb, function(req,res) {
 	}
 	close(req);
 });
+
+app.post('/guild/join', connectDb, function(req,res) {
+	console.log("Hit here.");
+	var guildID = req.body.G_id
+	console.log(user.id + " is Joining Guild " + guildID);
+	if(user === undefined) {
+	 	//console.log("You need to login to view this page!");
+		 //res.status(200).render('notloggedin');
+		 res.redirect('/account');
+	}
+	else {
+		var qry = `Insert into Belong (M_id, G_id) 
+		values (`+ user.id + `,` + guildID + `)`;
+		req.db.query(qry,function(err,Guilds) {
+			if(err) {
+				console.log("Error joining Guild!");
+			}
+			else {
+				console.log(Guilds);
+				res.status(200).render('guild',{Guilds});
+			}
+		});
+	close(req);
+	}
+});
+
+app.post('/guild/leave', connectDb, function(req,res) {
+	console.log("Hit here.");
+	var guildID = req.body.G_id
+	console.log(user.id + " is Leaving Guild " + guildID);
+	if(user === undefined) {
+	 	//console.log("You need to login to view this page!");
+		 //res.status(200).render('notloggedin');
+		 res.redirect('/account');
+	}
+	else {
+		var qry = `delete from Belong Where M_id = `+ user.id + ` AND G_id = ` + guildID;
+		console.log(qry);
+		
+		req.db.query(qry,function(err,Guilds) {
+			if(err) {
+				console.log("Error Leaving Guild!");
+			}
+			else {
+				console.log(Guilds);
+				res.status(200).render('guild',{Guilds});
+			}
+		});
+		
+	close(req);
+	}
+});
+
+// app.post(
+// 	'/guild',
+// 	connectDb,
+// 	function(req, res, next) {
+// 		let guildName = req.body.guildname;
+// 		let memberName = req.body.membername;
+// 	}
+// )
 
 /* not found 404*/
 app.get('*', function(req,res){

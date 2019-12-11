@@ -1,21 +1,88 @@
+
+{{! Mom says that from here, we have to pull data from server.js to figure
+Out who is logged in to get their information and then write an UPDATE command of the Belong Table based
+On the M_id of the user and the G_id of the Guild and join them on the id's}}
+
+<script type="text/javascript"> 
+function joinGuild(guildID) {
+  console.log("Joining Guild with the ID: " + guildID);    // We got to here!
+  data = JSON.stringify({
+		"G_id": guildID,
+	});
+
+  console.log(data);
+  
+  reqURL = '/guild/join';
+  postReq = new XMLHttpRequest();
+	postReq.open('POST',reqURL);
+  postReq.setRequestHeader('Content-Type','application/json');
+  postReq.send(data);
+  window.location = '/guild';
+
+}
+
+function leaveGuild(guildID) {
+  console.log("Leaving Guild with the ID: " + guildID);    // We got to here!
+  
+  data = JSON.stringify({
+		"G_id": guildID,
+	});
+
+  console.log(data);
+  
+  reqURL = '/guild/leave';
+  postReq = new XMLHttpRequest();
+	postReq.open('POST',reqURL);
+  postReq.setRequestHeader('Content-Type','application/json');
+  postReq.send(data);
+  window.location = '/guild';
+}
+
+
+</script>
+
 <h1>Guilds</h1>
   <table id ="t01" border="1" style="margin: auto;">
     <thead>
       <tr>
         <th>Name</th>
         <th>Type</th>
+        <th>Join Guild</th>
+        <th>Leave Guild</th>
       </tr>
     </thead>
     <tbody>
       {{#if Guilds.length}}
         {{#each Guilds}}
           <tr >
-            <td>{{Name}}</td>
+            <td id="{{Name}}">{{Name}}</td>
             <td>{{Type}}</td>
+            <td>
+              {{#if_eq IS_Member 0}}
+                <input type="button" id="joinButton_{{Name}}" value="Join" onclick="joinGuild('{{G_id}}');"></input>
+              {{else}}
+                &nbsp;
+              {{/if_eq}}
+            </td>
+            <td>
+              {{#if_eq IS_Member 1}}
+              <input type="button" id="leaveButton_{{Name}}" value="Leave" onclick="leaveGuild('{{G_id}}');"></input>
+              {{else}}
+                &nbsp;
+              {{/if_eq}}
+            </td>
+{{!--             
+              {{#with Guilds}}
+              {{guildID}}
+              {{/with}} --}}
+            </td>
+            {{!<td><input type="button" value="Join" onclick="joinGuild()"></input></td>}}
           </tr>
         {{/each}}
       {{else}}
-        <h1 style="text-align: center;">ur mum gay</h1>
+        <h1 style="text-align: center;">Error Retrieving Guilds</h1>
       {{/if}}
     </tbody>
 </table>
+
+
