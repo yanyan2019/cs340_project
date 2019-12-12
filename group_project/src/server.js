@@ -78,9 +78,8 @@ app.post('/request/login',connectDb, function(req, res) {
 		var usernamefrombox 		= req.body.name;
 		var passwordfrombox 		= req.body.text;
 
-		var qry = `SELECT m.M_id, m.M_name FROM Member m WHERE m.M_name = '${usernamefrombox}' AND m.M_pass = '${passwordfrombox}'`
+		var qry = `SELECT * FROM Member m WHERE m.M_name = '${usernamefrombox}'`
 		console.log(qry);
-		//req.db.query('SELECT * FROM Member WHERE M_name = ?',[usernamefrombox],function(err,members) {
 		req.db.query(qry,function(err,members) {
 			if(err) {
 				console.log("Error getting Member");
@@ -95,16 +94,17 @@ app.post('/request/login',connectDb, function(req, res) {
 				if(members.length === 0) {
 					console.log("Creating New User!");
 					user = {
+						id: members[0].M_id,
 						name: usernamefrombox,
 						pass: passwordfrombox
 					};
+
 					close(req);
 					res.status(200).send("Creating New Account!");
 				}
 				else {
 					// We have a member with that name.
-					if(members.length > 0
-						) {
+					if(members[0].M_pass === passwordfrombox) {
 						console.log("Login Successful! from /request/login");
 						user = {
 							id: members[0].M_id,
@@ -112,7 +112,7 @@ app.post('/request/login',connectDb, function(req, res) {
 							pass: passwordfrombox
 						};
 						close(req);
-						//res.status(200).send("Login Successful!");
+						res.status(200).send("Login Successful!");
 						
 					}
 					else {
@@ -212,8 +212,6 @@ app.post('/quest/add', connectDb, function(req,res) {
 				console.log(questRank);
 				console.log(questReward);
 				console.log(questAmount);
-				
-				
 			}
 		});
 	}
@@ -221,18 +219,13 @@ app.post('/quest/add', connectDb, function(req,res) {
 
 app.get('/guild', connectDb, function(req,res) {
 	if(user === undefined) {
-		//console.log("You need to login to view this page!");
-		//res.status(200).render('notloggedin');
-		res.redirect('/account');
+		console.log("You need to login to view this page!");
+		res.status(200).render('notloggedin');
 	}
 	else {
-		var qry = `SELECT
-		g.G_id
-		, g.Name
-		, g.Type
-		, (
+		var qry = `SELECT g.G_id, g.Name, g.Type, (
 			CASE wHEN b.M_id is null THEN FALSE
-			else tRUE
+			else TRUE
 			END
 			) AS IS_Member
 	FROM Guild g
@@ -298,7 +291,6 @@ app.post('/guild/leave', connectDb, function(req,res) {
 				res.status(200).render('guild',{Guilds});
 			}
 		});
-		
 	close(req);
 	}
 });
@@ -330,17 +322,6 @@ app.get('/quest/add', connectDb, function(req,res) {
 	}
 	close(req);
 });
-
-
-// app.post(
-// 	'/guild',
-// 	connectDb,
-// 	function(req, res, next) {
-// 		let guildName = req.body.guildname;
-// 		let memberName = req.body.membername;
-// 	}
-// )
-
 /* not found 404*/
 app.get('*', function(req,res){
 	res.status(400).render('notfound');
