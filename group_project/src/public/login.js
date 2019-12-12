@@ -28,7 +28,7 @@ function POST(event) {
 				alert("Incorrect Password!");
 			}
 			else if(res === "Creating New Account!") {
-				alert("Creating New Account!");
+				//alert("Creating New Account!");
 			}
 			else {
 
