@@ -147,7 +147,6 @@ app.get('/account', function(req, res){
 		res.status(200).render('login');
 	}
 	else {
-		user == undefined;
 		res.status(200).render('logout');
 	}
 	close(req);
