@@ -1,0 +1,56 @@
+<script type='text/javascript' src='/addquest.js' defer></script>
+<div>
+	<form>
+        <table>
+            <tr>
+                <td colspan="2" align="center">
+                    <h1>Add Quest</h1>
+                </td>
+            </tr>
+            <tr>
+                <td>Title:</td>
+                <td><input type="text" id="questTitle" width="50px"></td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td><input type="text" id="questDesc" ></td>
+            </tr>
+            <tr>
+                <td>Rank:</td>
+                <td>
+                    <select id="questRank">
+                        {{#for 1 10 1}}
+                            <option value="{{this}}">{{this}}</option>
+                        {{/for}}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Reward:</td>
+                <td><input type="text" id="questReward" ></td>
+            </tr>
+            <tr>
+                <td>Quanitity:</td>
+                <td><input type="text" id="questAmount" ></td>
+            </tr>
+            {{#if Guilds.length}}
+            <tr>
+                <td>Guild:</td>
+                <td>
+                    <select id="guildID">
+                        <option value="-1">Please select</option>
+                    {{#each Guilds}}
+                        <option value="{{G_id}}">{{Name}}</option>
+                    {{/each}}
+                    </select>
+                    </td>
+                </td>
+            </tr>
+            {{/if}}
+        </table>
+        
+		<div>
+			<button type="submit" id="submitButton">Submit Quest</button>
+		</div>
+	</form>
+</div>

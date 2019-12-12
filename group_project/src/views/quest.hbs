@@ -19,13 +19,22 @@ function acceptQuest(questID) {
 </script>
 
 <h1>This is quest board</h1>
+
   <table id ="t01" border="1" style="margin: auto; {{!width: 500px;}}">
     <thead>
+      <tr><td colspan="7"><a href="/quest/add"><input type="button" id="addButton" style="float: right;" value="Add New Quest"></input></a></td></tr>
+      <tr>
+        <th colspan="4">QUEST</th>
+        <th colspan="2">REWARD</th>
+        <th>&nbsp;</th>
+      </tr>
       <tr>
         <th>Type</th>
         <th>Description</th>
         <th>Rank</th>
         <th>Post Date</th>
+        <th>QTY</th>
+        <th>Item</th>
         <th>Accept Quest</th>
       </tr>
     </thead>
@@ -37,11 +46,14 @@ function acceptQuest(questID) {
             <td>{{Description}}</td>
             <td>{{Q_rank}}</td>
             <td>{{Post_Date}}</td>
+            <td>{{Amount}}</td>
+            <td>{{Reward_Item}}</td>
             <td><input type="button" id="acceptButton_{{Type}}" value="Accept" onclick="acceptQuest('{{Q_id}}');"></input></td>
           </tr>
         {{/each}}
       {{else}}
-        <h1 style="text-align: center;">ur mum gay</h1>
+        <h1 style="text-align: center;">There are no available quests.</h1>
       {{/if}}
+      <tr><td colspan="7"><a href="/quest/add"><input type="button" id="addButton" style="float: right;" value="Add New Quest"></input></a></td></tr>
     </tbody>
 </table>

@@ -21,7 +21,14 @@ const hbs = exphbs.create({
 				return opts.fn(this);
 			else
 				return opts.inverse(this);
+		},
+		for: function(from, to, incr, block) {
+			var accum = '';
+			for(var i = from; i <= to; i += incr)
+				accum += block.fn(i);
+			return accum;
 		}
+
 	}
 });
 /*add layouts */
@@ -153,12 +160,15 @@ app.get('/quest', connectDb,function(req, res){
 	}
 	else {
 		var qry = `SELECT
-		*
+		q.*
+        , r.Amount
+        , r.Type as Reward_Item
 	FROM
 		Quest q
+        INNER jOIN Reward r ON q.Q_id = r.Q_id
 	WHERE q.Q_id NOT IN (
-		Select t.Q_id from Takes_On t
-		)`;
+						Select t.Q_id from Takes_On t
+						)`;
 		req.db.query(qry,function(err,Quests) {
 			if(err) {
 				console.log("Error getting Quests!");
@@ -172,29 +182,41 @@ app.get('/quest', connectDb,function(req, res){
 	close(req);
 });
 
-app.post('/quest/accept', connectDb, function(req,res) {
-	console.log("Hit here.");
-	 var questID = req.body.Q_id
-	 console.log(user.id + " is Accepting Quest " + questID);
-	 if(user === undefined) {
-	  	//console.log("You need to login to view this page!");
-	 	 //res.status(200).render('notloggedin');
-	 	 res.redirect('/account');
-	 }
-	 else {
-	 	var qry = `Insert into Takes_On (M_id, Q_id) 
-	 	values (`+ user.id + `,` + questID + `)`;
-	 	req.db.query(qry,function(err,Quests) {
-	 		if(err) {
-	 			console.log("Error accepting quest!");
-	 		}
-	 		else {
-	 			console.log(Quests);
-	 			res.status(200).render('quest',{Quests});
-	 		}
-	 	});
-	close(req);
-	 }
+
+app.post('/quest/add', connectDb, function(req,res) {
+	console.log("Server-Side: Adding Quest");
+	 //var questID = req.body.Q_id	// need to generate a questID
+	 if(req.body && req.body.questTitle && req.body.questDesc && req.body.questRank && req.body.questReward && req.body.questAmount) {
+
+		var questTitle 		= req.body.questTitle;
+		var questDesc 		= req.body.questDesc;
+		var questRank 		= req.body.questRank;
+		var questReward		= req.body.questReward;
+		var questAmount		= req.body.questAmount;
+		var guildID			= req.body.guildID;
+
+		
+
+		var qry = `CALL sp_Quest_Insert('${questTitle}', '${questDesc}', ${questRank}, '${questReward}', ${questAmount}, ${guildID})`;
+		console.log(qry);
+		//req.db.query('SELECT * FROM Member WHERE M_name = ?',[usernamefrombox],function(err,members) {
+		req.db.query(qry,function(err,quest) {
+			if(err) {
+				console.log("Error getting Member");
+			}
+			else {
+				console.log(quest);
+				
+				console.log(questTitle);
+				console.log(questDesc);
+				console.log(questRank);
+				console.log(questReward);
+				console.log(questAmount);
+				
+				
+			}
+		});
+	}
 });
 
 app.get('/guild', connectDb, function(req,res) {
@@ -280,6 +302,35 @@ app.post('/guild/leave', connectDb, function(req,res) {
 	close(req);
 	}
 });
+
+app.get('/quest/add', connectDb, function(req,res) {
+	if(user === undefined) {
+		//console.log("You need to login to view this page!");
+		//res.status(200).render('notloggedin');
+		res.redirect('/account');
+	}
+	else {
+		var qry = `SELECT
+		*
+		FROM
+			Guild g
+			Order by g.Name
+			;
+		`;
+		req.db.query(qry,function(err,Guilds) {
+			if(err) {
+				console.log("Error getting Guild!");
+			}
+			else {
+				//console.log(Guilds);
+				//res.status(200).render('guild',{Guilds});
+				res.status(200).render('addquest',{Guilds});
+			}
+		});
+	}
+	close(req);
+});
+
 
 // app.post(
 // 	'/guild',

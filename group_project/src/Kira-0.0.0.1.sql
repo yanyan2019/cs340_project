@@ -16,7 +16,7 @@ CREATE TABLE Ranks
 
 CREATE TABLE Member
 (
-  M_id INT NOT NULL,
+  M_id INT NOT NULL AUTO_INCREMENT,
   M_pass VARCHAR(32) NOT NULL,
   M_rank INT NOT NULL,
   M_name VARCHAR(30) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE Member
 
 CREATE TABLE Guild
 (
-  G_id INT NOT NULL,
+  G_id INT NOT NULL AUTO_INCREMENT,
   Type VARCHAR(30) NOT NULL,
   Name VARCHAR(50) NOT NULL,
   PRIMARY KEY (G_id)
@@ -47,8 +47,8 @@ CREATE TABLE Belong
 
 CREATE TABLE Quest
 (
-  Q_id INT NOT NULL,
-  Post_Date DATE NOT NULL,
+  Q_id INT NOT NULL AUTO_INCREMENT,
+  Post_Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   Q_rank INT NOT NULL,
   `Type` VARCHAR(30) NOT NULL,
   Description VARCHAR(100) NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE Takes_On
 
 CREATE TABLE Reward
 (
-   Id Int NOT NULL,
+   Id Int NOT NULL AUTO_INCREMENT,
   `Type` VARCHAR(50) NOT NULL,
   Amount INT NOT NULL,
   Q_id INT NOT NULL,
@@ -200,6 +200,8 @@ Where Type = 'Mage';
 /* Create Procs */
 Drop PROCEDURE IF EXISTS Member_Guild_Select;
 Drop PROCEDURE IF EXISTS Guild_Member_Count_Select;
+DROP PROCEDURE IF EXISTS sp_Login;
+DROP PROCEDURE IF EXISTS sp_Quest_Insert;
 
 DELIMITER |
 	CREATE PROCEDURE `Member_Guild_Select` ()
@@ -226,6 +228,47 @@ BEGIN
 	Group By g.Name
 	Order By count(b.M_id) desc, g.Name;
 END
+|
+
+DELIMITER |
+CREATE PROCEDURE `sp_Login`(IN `m_Name` VARCHAR(255), IN `m_Pass` VARCHAR(255))
+BEGIN
+	select
+		  m.*
+	from Member m
+	WHERE
+    m.M_name = m_Name
+    AND m.M_pass = m_Pass
+    ;
+END
+|
+
+DELIMITER |
+CREATE PROCEDURE `sp_Quest_Insert`(IN `questTitle` VARCHAR(255), IN `questDesc` VARCHAR(255), IN `questRank` INT, IN `questReward` VARCHAR(255), IN `rewardAmount` INT, IN `guildID` INT)
+BEGIN   
+    DECLARE Q_id  INT unsigned DEFAULT 0;  
+
+Insert into Quest
+(Type, Description, Q_rank, G_id)
+VALUES
+(questTitle, questDesc, questRank, guildID)
+;
+
+SELECT LAST_INSERT_ID() INTO Q_id;
+
+INSERT INTO Reward
+(Type, Amount, Q_id)
+VALUES
+(questReward, rewardAmount, Q_id)
+;
+
+select Q_id;
+
+END
+|
+
+DELIMITER |
+DELETE from Takes_On Where Q_id in (1,3,5,7);
 |
 
 
