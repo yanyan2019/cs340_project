@@ -286,8 +286,8 @@ app.post('/guild/leave', connectDb, function(req,res) {
 app.get('/quest/add', connectDb, function(req,res) {
 	if(user === undefined) {
 		//console.log("You need to login to view this page!");
-		//res.status(200).render('notloggedin');
-		res.redirect('/account');
+		res.status(200).render('notloggedin');
+		//res.redirect('/account');
 	}
 	else {
 		var qry = `SELECT
@@ -310,6 +310,32 @@ app.get('/quest/add', connectDb, function(req,res) {
 	}
 	close(req);
 });
+
+app.post('/quest/accept', connectDb, function(req,res) {
+	//console.log("Hit here.");
+	 var questID = req.body.Q_id
+	 console.log(user.id + " is Accepting Quest " + questID);
+	 if(user === undefined) {
+				//console.log("You need to login to view this page!");
+				res.status(200).render('notloggedin');
+				//res.redirect('/account');
+	 }
+	 else {
+			 var qry = `Insert into Takes_On (M_id, Q_id) 
+			 values (`+ user.id + `,` + questID + `)`;
+			 req.db.query(qry,function(err,Quests) {
+					 if(err) {
+							 console.log("Error accepting quest!");
+					 }
+					 else {
+							 console.log(Quests);
+							 res.status(200).render('quest',{Quests});
+					 }
+			 });
+	close(req);
+	 }
+});
+
 /* not found 404*/
 app.get('*', function(req,res){
 	res.status(400).render('notfound');
