@@ -86,19 +86,8 @@ app.post('/request/login',connectDb, function(req, res) {
 			}
 			else {
 				console.log(members);
-				console.log("User: ")
-				console.log(members[0].M_name);
-				console.log(members[0].M_id);
-				console.log(usernamefrombox);
-				console.log(passwordfrombox);
 				if(members.length === 0) {
 					console.log("Creating New User!");
-					user = {
-						id: members[0].M_id,
-						name: usernamefrombox,
-						pass: passwordfrombox
-					};
-
 					close(req);
 					res.status(200).send("Creating New Account!");
 				}
